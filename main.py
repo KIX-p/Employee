@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox, QMainWindow
 from employee import EmployeeEncoder
@@ -30,19 +31,25 @@ class MyForm(QDialog):
         self.ui.comboBox.addItems(self.employees.get_list())
 
     def save(self):
-        with open('employees.json', 'w') as file:
-            json.dump(self.employees.to_json(), file, cls=EmployeeEncoder)
-        QMessageBox.about(self,"Zapis" ,"pracownicy zapisani do pliku")
+        if self.employees.list == []:
+            QMessageBox.about(self,"blad", "nie ma pracownikow w liscie")
+        else:
+            with open('employees.json', 'w') as file:
+                json.dump(self.employees.to_json(), file, cls=EmployeeEncoder)
+            QMessageBox.about(self,"Zapis" ,"pracownicy zapisani do pliku")
 
     def load(self):
-        if self.employees.load_list() == []:
-            QMessageBox.about(self,"Wczytanie" ,"brak pracowników w pliku")
+        if not os.path.exists("employees.json"):
+            QMessageBox.about(self,"Błąd", "Plik nie istnieje")
         else:
-            if self.ui.comboBox.count() == 0:
-                self.ui.comboBox.addItems(self.employees.load_list())
-                QMessageBox.about(self,"Wczytanie" ,"Wczytano dane z pliku")
+            if self.employees.load_list() == []:
+                QMessageBox.about(self,"Wczytanie" ,"brak pracowników w pliku")
             else:
-                QMessageBox.about(self,"Wczytanie" ,"dane z pliku zostały już wczytane")
+                if self.ui.comboBox.count() == 0:
+                    self.ui.comboBox.addItems(self.employees.load_list())
+                    QMessageBox.about(self,"Wczytanie" ,"Wczytano dane z pliku")
+                else:
+                    QMessageBox.about(self,"Wczytanie" ,"dane z pliku zostały już wczytane")
 
 
 

@@ -1,0 +1,10 @@
+[
+  {
+    "id": 0,
+    "name": "sdf",
+    "surname": "sdf",
+    "phoneNumber": "+48 111 111 111",
+    "pesel": "22222222222",
+    "contract": false
+  }
+]

@@ -9,10 +9,6 @@ class Employees:
     
     def to_json(self):
         return [EmployeeEncoder().default(emp) for emp in self.list]
-    
-    def save_list(self):
-        with open('employees.json', 'w') as file:
-            json.dump(self.to_json(), file)
 
     def load_list(self):
         with open('employees.json', 'r') as file:

@@ -35,7 +35,7 @@ class MyForm(QDialog):
             QMessageBox.about(self,"blad", "nie ma pracownikow w liscie")
         else:
             with open('employees.json', 'w') as file:
-                json.dump(self.employees.to_json(), file, cls=EmployeeEncoder)
+                json.dump(self.employees.to_json(), file, cls=EmployeeEncoder, indent=2)
             QMessageBox.about(self,"Zapis" ,"pracownicy zapisani do pliku")
 
     def load(self):

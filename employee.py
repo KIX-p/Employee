@@ -41,7 +41,7 @@ class Employee:
 
 
 class EmployeeEncoder(json.JSONEncoder):
-    def default(self, o):
+    def default(self, o) -> dict:
         if isinstance(o, Employee):
             return {'id': o.id,
                     'name': o.name,

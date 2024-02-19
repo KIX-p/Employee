@@ -6,7 +6,7 @@ class Employees:
 
     def __init__(self):
         self.list = []
-    
+
     def to_json(self):
         return [EmployeeEncoder().default(emp) for emp in self.list]
 
@@ -17,13 +17,15 @@ class Employees:
         for emp in data:
             self.add(Employee(emp['surname'], emp['name'], emp['phoneNumber'], emp['pesel'], emp['contract']))
         return [f"{emp.pesel} {emp.name} {emp.surname}" for emp in self.list]
-                
+
     def add(self, emp: Employee):
+        for i in self.list:
+            if i.pesel == emp.pesel:
+                raise ValueError("Pracownik juz istnieje")
         self.list.append(emp)
 
     def remove(self, emp: Employee):
         self.list.remove(emp)
-
 
     def get(self, id=None, name=None, surname=None, pesel=None):
         result = []

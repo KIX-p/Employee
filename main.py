@@ -61,14 +61,19 @@ class MyForm(QDialog):
         w.exec()
 
     def search(self):
-        search_pesel = self.ui.pesel.currentText()
-        pesel = search_pesel[:11]
-        if search_pesel == self.ui.comboBox.currentText():
-            return self.employees.get(pesel=pesel)[0]
+        pesel = self.ui.pesel.text()
+        for i in range(self.ui.comboBox.count()):
+            if self.ui.comboBox.itemText(i)[:11].startswith(pesel):
+                self.ui.comboBox.setCurrentIndex(i)
+                return
+
+
+
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MyForm()
+    window.setWindowTitle('Pracownicy')
     window.show()
     sys.exit(app.exec())

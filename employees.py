@@ -27,6 +27,8 @@ class Employees:
     def remove(self, emp: Employee):
         self.list.remove(emp)
 
+
+
     def get(self, id=None, name=None, surname=None, pesel=None):
         result = []
         for emp in self.list:
